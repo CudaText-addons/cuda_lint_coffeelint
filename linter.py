@@ -5,8 +5,8 @@
 
 import os
 from cuda_lint import Linter
+from cudax_nodejs import NODE_FILE
 
-_node = 'node' if os.name=='nt' else 'nodejs'
 _js = os.path.join(os.path.dirname(__file__), 'node_modules', 'coffeelint', 'bin', 'coffeelint')
 
 
@@ -14,7 +14,7 @@ class Coffeelint(Linter):
     """Provides an interface to coffeelint."""
 
     syntax = 'CoffeeScript'
-    executable = _node
+    executable = NODE_FILE
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 1.4.0'
@@ -32,7 +32,7 @@ class Coffeelint(Linter):
     def cmd(self):
         """Return a tuple with the command line to execute."""
 
-        command = [_node, _js, '--reporter', 'jslint', '--stdin']
+        command = [NODE_FILE, _js, '--reporter', 'jslint', '--stdin']
         #command.append('--literate')
 
         return command
